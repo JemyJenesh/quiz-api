@@ -1,0 +1,42 @@
+version: "3.8"
+services:
+  # api-server:
+  #   build: .
+  #   image: quiz-api
+  #   ports:
+  #     - "5000:5000"
+  #   depends_on:
+  #     - db
+  #   networks:
+  #     - quiz
+  #   depends_on:
+  #     - phpmyadmin
+
+  db:
+    image: mariadb:10.6
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    networks:
+      - quiz
+    volumes:
+      - api-data:/var/lib/mysql
+
+  phpmyadmin:
+    image: phpmyadmin:5
+    restart: always
+    ports:
+      - 8080:80
+    environment:
+      - PMA_ARBITRARY=1
+    networks:
+      - quiz
+    depends_on:
+      - db
+
+networks:
+  quiz:
+    driver: bridge
+volumes:
+  api-data:
+    driver: local
