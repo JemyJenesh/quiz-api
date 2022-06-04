@@ -8,8 +8,7 @@ Simple quiz application api
 
 ## Running the server
 
-- Run `docker-compose up -d` to start all the services.
-- Run `yarn dev` to start the api server (runs at localhost:5000 by default)
+- Run `docker-compose up -d` to start all the services (the api server too)
 
 ## Available scripts
 
