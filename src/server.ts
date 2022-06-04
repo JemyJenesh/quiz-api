@@ -26,7 +26,7 @@ async function startApolloServer(schema: GraphQLSchema) {
   app.get("/", (req: Request, res: Response) => {
     res.json({
       app: appConfig.appName,
-      date: appConfig.appDate,
+      createdAt: appConfig.appDate,
       host: req.hostname,
     });
   });
