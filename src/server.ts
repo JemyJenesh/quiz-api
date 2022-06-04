@@ -3,7 +3,7 @@ import {
   ApolloServerPluginLandingPageGraphQLPlayground,
 } from "apollo-server-core";
 import { ApolloServer } from "apollo-server-express";
-import express, { Application } from "express";
+import express, { Application, Request, Response } from "express";
 import { GraphQLSchema } from "graphql";
 import http from "http";
 
@@ -21,6 +21,14 @@ async function startApolloServer(schema: GraphQLSchema) {
       ApolloServerPluginDrainHttpServer({ httpServer }),
       ApolloServerPluginLandingPageGraphQLPlayground(),
     ],
+  });
+
+  app.get("/", (req: Request, res: Response) => {
+    res.json({
+      app: appConfig.appName,
+      date: appConfig.appDate,
+      host: req.hostname,
+    });
   });
 
   await server.start();
