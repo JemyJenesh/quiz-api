@@ -1,18 +1,42 @@
+import {
+  ApolloServerPluginDrainHttpServer,
+  ApolloServerPluginLandingPageGraphQLPlayground,
+} from "apollo-server-core";
+import { ApolloServer } from "apollo-server-express";
 import express, { Application, Request, Response } from "express";
+import { GraphQLSchema } from "graphql";
+import http from "http";
 
 import { appConfig } from "./configs";
+import schema from "./schema";
 
-const app: Application = express();
-const port = appConfig.port;
+async function startApolloServer(schema: GraphQLSchema) {
+  const app: Application = express();
+  const httpServer = http.createServer(app);
+  const port = appConfig.port;
 
-app.get("/", (req: Request, res: Response) => {
-  return res.json({
-    app: appConfig.appName,
-    createdAt: appConfig.appDate,
-    host: req.hostname,
+  const server = new ApolloServer({
+    schema,
+    plugins: [
+      ApolloServerPluginDrainHttpServer({ httpServer }),
+      ApolloServerPluginLandingPageGraphQLPlayground(),
+    ],
   });
-});
 
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
-});
+  app.get("/", (req: Request, res: Response) => {
+    res.json({
+      app: appConfig.appName,
+      createdAt: appConfig.appDate,
+      host: req.hostname,
+    });
+  });
+
+  await server.start();
+  server.applyMiddleware({ app });
+
+  await new Promise<void>((resolve) => httpServer.listen({ port }, resolve));
+
+  console.log(`🚀 Server ready at http://localhost:5000${server.graphqlPath}`);
+}
+
+startApolloServer(schema);
