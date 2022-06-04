@@ -5,11 +5,10 @@ Simple quiz application api
 ## Setup
 
 - Copy **.env.example** to **.env** and update the variables
-- Run `yarn` to install dependencies
 
 ## Running the server
 
-- Run `yarn dev` to start the dev server.
+- Run `docker-compose up -d` to start all the services. (It also runs the api server)
 
 ## Available scripts
 
