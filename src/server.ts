@@ -8,6 +8,7 @@ import { GraphQLSchema } from "graphql";
 import http from "http";
 
 import { appConfig } from "./config";
+import { knex } from "./knex";
 import schema from "./schema";
 
 async function startApolloServer(schema: GraphQLSchema) {
