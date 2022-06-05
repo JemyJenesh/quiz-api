@@ -4,24 +4,19 @@ dotenv.config();
 
 export const dbConfig = {
   development: {
-    username: process.env.DB_USERNAME,
-    password: process.env.DB_PASSWORD,
+    client: process.env.DB_CLIENT,
     database: process.env.DB_NAME,
     host: process.env.DB_HOST,
-    dialect: "mariadb",
+    password: process.env.DB_PASSWORD,
+    port: process.env.DB_PORT,
+    username: process.env.DB_USERNAME,
   },
   test: {
-    username: process.env.TEST_DB_USERNAME,
-    password: process.env.TEST_DB_PASSWORD,
+    client: process.env.TEST_DB_CLIENT,
     database: process.env.TEST_DB_NAME,
     host: process.env.TEST_DB_HOST,
-    dialect: "mariadb",
-  },
-  production: {
-    username: process.env.DB_USERNAME,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_NAME,
-    host: process.env.DB_HOST,
-    dialect: "mariadb",
+    password: process.env.TEST_DB_PASSWORD,
+    port: process.env.TEST_DB_PORT,
+    username: process.env.TEST_DB_USERNAME,
   },
 };
