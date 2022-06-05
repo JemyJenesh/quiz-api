@@ -7,8 +7,9 @@ import express, { Application, Request, Response } from "express";
 import { GraphQLSchema } from "graphql";
 import http from "http";
 
-import { appConfig } from "./configs";
+import { appConfig } from "./config";
 import schema from "./schema";
+import { sequelize } from "./sequelize";
 
 async function startApolloServer(schema: GraphQLSchema) {
   const app: Application = express();
@@ -37,6 +38,13 @@ async function startApolloServer(schema: GraphQLSchema) {
   await new Promise<void>((resolve) => httpServer.listen({ port }, resolve));
 
   console.log(`🚀 Server ready at http://localhost:5000${server.graphqlPath}`);
+
+  try {
+    await sequelize.authenticate();
+    console.log("Connection has been established successfully.");
+  } catch (error) {
+    console.error("Unable to connect to the database:", error);
+  }
 }
 
 startApolloServer(schema);

@@ -22,6 +22,7 @@
   "devDependencies": {
     "@types/express": "4.17.13",
     "@types/node": "17.0.39",
+    "@types/validator": "13.7.2",
     "ts-node-dev": "2.0.0",
     "typescript": "4.7.3"
   },
@@ -30,6 +31,10 @@
     "apollo-server-express": "3.8.2",
     "dotenv": "16.0.1",
     "express": "4.18.1",
-    "graphql": "16.5.0"
+    "graphql": "16.5.0",
+    "mariadb": "3.0.0",
+    "reflect-metadata": "0.1.13",
+    "sequelize": "6.20.1",
+    "sequelize-typescript": "2.1.3"
   }
 }
